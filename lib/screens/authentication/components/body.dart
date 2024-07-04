@@ -27,6 +27,9 @@ class _BodyState extends State<Body> {
       BlocProvider.of<AuthenticationBloc>(context);
   bool login = true;
   final formKey = GlobalKey<FormState>();
+// Affichage des mots de passe
+  bool obscurePassword = true;
+  bool obscurePasswordConf = true;
 
   @override
   void initState() {
@@ -121,6 +124,20 @@ class _BodyState extends State<Body> {
                             controller: password,
                             prefixIcon: Icon(Icons.lock),
                             hintText: "Password",
+                            obscureText:
+                                obscurePassword, 
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                obscurePassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  obscurePassword = !obscurePassword;
+                                });
+                              },
+                            ),
                           ),
                           login
                               ? Align(
@@ -146,6 +163,20 @@ class _BodyState extends State<Body> {
                                   controller: conf,
                                   prefixIcon: Icon(Icons.verified),
                                   hintText: "Confirm password",
+                                  obscureText:
+                                      obscurePasswordConf, 
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      obscurePasswordConf
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        obscurePasswordConf = !obscurePasswordConf;
+                                      });
+                                    },
+                                  ),
                                 ),
                           state is LoginLoadingState ||
                                   state is RegisterLoadingState
